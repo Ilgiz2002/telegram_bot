@@ -38,31 +38,19 @@ async def add_recording(message: Message):
         await bot.send_message(chat_id=message.chat.id, text=text)
 
 
-# @dp.message_handler(commands=['select_today'])
-# async def select_today(message: Message):
-#     res = sqlite.select_today()
-#     await message.answer('За сегодня :')
-    
-#     expenses = get_expenses(res)
-
-#     await message.answer(text=expenses)
-#     await message.answer(f'Потрачено : {sum(price)} сум')
+@dp.message_handler(commands=['select_today'])
+async def select_today(message: Message):
+    expenses = sqlite.select_today()
+    await message.answer(text=expenses)
 
 
-    
 @dp.message_handler(commands=['select_week'])
 async def select_week(message: Message):
     expenses = sqlite.select_week()
     await message.answer(text=expenses)
 
 
-
-# @dp.message_handler(commands=['select_month'])
-# async def select_month(message: Message):
-#     res = sqlite.select_month()
-#     await message.answer('За месяц :')
-#     price = []
-#     for line in res:
-#         await bot.send_message(chat_id=message.chat.id, text=f'{line[0]}\n {line[1]} - {line[2]} сум')
-#         price.append(line[2])
-#     await message.answer(f'Потрачено : {sum(price)} сум')
+@dp.message_handler(commands=['select_month'])
+async def select_month(message: Message):
+    expenses = sqlite.select_month()
+    await message.answer(text=expenses)

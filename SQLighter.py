@@ -36,29 +36,20 @@ class SQLighter:
             else:
                 expenses += f'{item[1]} - {item[2]} сум\n'
         return expenses
-    # def get_expenses(sql_obj, res):
-    #     expenses = {}
-    #     for item in res:
-    #         if item[0] not in expenses.keys():
-    #             expenses[item[0]] = [item[1], item[2]]
-    #         else:
-    #             expenses[item[0]] += [item[1], item[2]]
-    #     return expenses
 
 
     def select_today(self):
         sql = self.cursor.execute(f' SELECT created_at, name, price FROM user_expenses WHERE created_at = "{TODAY}" ').fetchall()
-        return sql
+        return self.get_expenses(sql) 
 
     def select_week(self):
         sql = self.cursor.execute(f' SELECT created_at, name, price FROM user_expenses WHERE created_at >= "{TODAY - timedelta(days=7)}" ').fetchall()
-        expenses = self.get_expenses(sql)
-        return expenses 
+        return self.get_expenses(sql) 
 
 
     def select_month(self):
         sql = self.cursor.execute(f' SELECT created_at, name, price FROM user_expenses WHERE created_at >= "{TODAY - timedelta(days=30)}" ').fetchall()
-        return sql
+        return self.get_expenses(sql) 
 
 
     def delete_from(self, recording):
