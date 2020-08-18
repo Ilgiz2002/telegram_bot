@@ -10,17 +10,6 @@ from SQLighter import SQLighter
 sqlite = SQLighter('user_database.sqlite')
 
 
-# @dp.message_handler(Command('menu'))
-# async def show_menu(message: Message):
-#     await message.answer("Выберите товар из меню ниже", reply_markup=menu)
-
-# @dp.message_handler(Text(equals=["Котлетки", "Макарошки", "Пюрешка"]))
-# async def show_console(message: Message):
-#     await message.answer(text=f'Вы заказали : {message.text}')
-
-
-    
-
 @dp.message_handler(Command('start'))
 async def show_menu(message: Message):
     await message.answer('Здравствуйте ! \nЭто бот для контролирования ваших расходов', reply_markup=menu)
