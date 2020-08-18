@@ -19,7 +19,7 @@ class SQLighter:
         self.cursor.executescript(f'''
                             UPDATE user_expenses 
                             SET price = price + {expenses_price}
-                            WHERE name = "{expenses_name}" and created_at = {created_at};
+                            WHERE name = "{expenses_name}" and created_at = "{created_at}";
 
                             INSERT INTO user_expenses (name, price, created_at)
                             SELECT "{expenses_name}", {expenses_price}, "{created_at}"

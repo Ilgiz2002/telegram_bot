@@ -11,3 +11,18 @@ menu = ReplyKeyboardMarkup(
       ],
       resize_keyboard=True
 )
+
+menu_date = ReplyKeyboardMarkup(
+      keyboard=[
+            [
+                  KeyboardButton(text='За сегодня')
+            ],
+            [
+                  KeyboardButton(text='За неделю'),
+            ],
+            [
+                  KeyboardButton(text='За месяц'),
+            ],
+      ],
+      resize_keyboard=True
+)
