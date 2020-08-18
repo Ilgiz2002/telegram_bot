@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime, timedelta, date
 
-TODAY = date(2020, 8, 16)
+TODAY = datetime.now().date()
 class SQLighter:
 
     def __init__(self, database):
@@ -27,13 +27,33 @@ class SQLighter:
                             ''')
         self.connection.commit()
 
+
+    def get_expenses(sql_obj, res):
+        expenses = ''
+        for item in res:
+            if item[0] not in expenses:
+                expenses += f'\nДата : {item[0]}\n'
+            else:
+                expenses += f'{item[1]} - {item[2]} сум\n'
+        return expenses
+    # def get_expenses(sql_obj, res):
+    #     expenses = {}
+    #     for item in res:
+    #         if item[0] not in expenses.keys():
+    #             expenses[item[0]] = [item[1], item[2]]
+    #         else:
+    #             expenses[item[0]] += [item[1], item[2]]
+    #     return expenses
+
+
     def select_today(self):
         sql = self.cursor.execute(f' SELECT created_at, name, price FROM user_expenses WHERE created_at = "{TODAY}" ').fetchall()
         return sql
 
     def select_week(self):
         sql = self.cursor.execute(f' SELECT created_at, name, price FROM user_expenses WHERE created_at >= "{TODAY - timedelta(days=7)}" ').fetchall()
-        return sql
+        expenses = self.get_expenses(sql)
+        return expenses 
 
 
     def select_month(self):
