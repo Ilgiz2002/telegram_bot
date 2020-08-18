@@ -40,17 +40,20 @@ async def add_recording(message: Message):
 
 @dp.message_handler(commands=['select_today'])
 async def select_today(message: Message):
+    await bot.send_message(chat_id=message.chat.id, text='За сегодня :')
     expenses = sqlite.select_today()
     await message.answer(text=expenses)
 
 
 @dp.message_handler(commands=['select_week'])
 async def select_week(message: Message):
+    await bot.send_message(chat_id=message.chat.id, text='За неделю :')
     expenses = sqlite.select_week()
     await message.answer(text=expenses)
 
 
 @dp.message_handler(commands=['select_month'])
 async def select_month(message: Message):
+    await bot.send_message(chat_id=message.chat.id, text='За месяц :')
     expenses = sqlite.select_month()
     await message.answer(text=expenses)

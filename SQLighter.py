@@ -15,14 +15,14 @@ class SQLighter:
         print('Таблица')
     
 
-    def insert_to(self, user_name, user_price, created_at=TODAY):
+    def insert_to(self, expenses_name, expenses_price, created_at=TODAY):
         self.cursor.executescript(f'''
                             UPDATE user_expenses 
-                            SET price = price + {user_price}
-                            WHERE name = "{user_name}" and created_at = {created_at};
+                            SET price = price + {expenses_price}
+                            WHERE name = "{expenses_name}" and created_at = {created_at};
 
                             INSERT INTO user_expenses (name, price, created_at)
-                            SELECT "{user_name}", {user_price}, "{created_at}"
+                            SELECT "{expenses_name}", {expenses_price}, "{created_at}"
                             WHERE (SELECT Changes() = 0)
                             ''')
         self.connection.commit()
@@ -30,11 +30,13 @@ class SQLighter:
 
     def get_expenses(sql_obj, res):
         expenses = ''
+        price = 0
         for item in res:
             if item[0] not in expenses:
-                expenses += f'\nДата : {item[0]}\n'
-            else:
-                expenses += f'{item[1]} - {item[2]} сум\n'
+                expenses += f'\nЗа {item[0]} :\n'
+            expenses += f'{item[1]} - {item[2]} сум\n'
+            price += item[2]
+        expenses += f'\nВсего потрачено : {price} сум'
         return expenses
 
 
