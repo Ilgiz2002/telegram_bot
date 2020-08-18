@@ -23,6 +23,9 @@ menu_date = ReplyKeyboardMarkup(
             [
                   KeyboardButton(text='За месяц'),
             ],
+            [
+                  KeyboardButton(text='Назад на главное меню'),
+            ],
       ],
       resize_keyboard=True
 )

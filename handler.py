@@ -27,21 +27,34 @@ async def add_recording(message: Message):
         await bot.send_message(chat_id=message.chat.id, text=text)
 
 
-@dp.message_handler(commands=['select_today'])
+@dp.message_handler(Text(equals='Мои расходы'))
+async def show_menu_date(message: Message):
+    text = "Выберите период :"
+    await bot.send_message(chat_id=message.chat.id, text=text, reply_markup=menu_date)
+
+
+@dp.message_handler(Text(equals='Назад на главное меню'))
+async def show_menu_date(message: Message):
+    text = 'Главное меню'
+    await bot.send_message(chat_id=message.chat.id, text=text, reply_markup=menu)
+
+
+
+@dp.message_handler(Text(equals='За сегодня'))
 async def select_today(message: Message):
     await bot.send_message(chat_id=message.chat.id, text='За сегодня :')
     expenses = sqlite.select_today()
     await message.answer(text=expenses)
 
 
-@dp.message_handler(commands=['select_week'])
+@dp.message_handler(Text(equals='За неделю'))
 async def select_week(message: Message):
     await bot.send_message(chat_id=message.chat.id, text='За неделю :')
     expenses = sqlite.select_week()
     await message.answer(text=expenses)
 
 
-@dp.message_handler(commands=['select_month'])
+@dp.message_handler(Text(equals='За месяц'))
 async def select_month(message: Message):
     await bot.send_message(chat_id=message.chat.id, text='За месяц :')
     expenses = sqlite.select_month()
